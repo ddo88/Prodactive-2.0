@@ -1,0 +1,36 @@
+﻿<li class="purple" ng-controller="NotificationController as notificationCtrl">
+    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+        <i class="ace-icon fa fa-bell icon-animated-bell"></i>
+        <span class="badge badge-important">{{notificationCtrl.notifications.length}}</span>
+    </a>
+    <button ng-click="notificationCtrl.test()">Click Aqui</button>
+    <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+        <li class="dropdown-header">
+            <i class="ace-icon fa fa-exclamation-triangle"></i>
+            {{notificationCtrl.notifications.length}} Notifications
+        </li>
+        
+        <li ng-repeat="item in notificationCtrl.notifications">
+            <a href="#">
+                <div class="clearfix">
+                    <span class="pull-left">
+                        <i class="btn btn-xs no-hover btn-primary fa fa-comment" ng-if="item.NotifyType==0"></i>
+                        <i class="btn btn-xs no-hover btn-pink fa fa-comment"    ng-if="item.NotifyType==1"></i>
+                        <i class="btn btn-xs no-hover btn-success fa fa-comment" ng-if="item.NotifyType==2"></i>
+                        <i class="btn btn-xs no-hover btn-info fa fa-comment"    ng-if="item.NotifyType==3"></i>
+                        {{item.Text}}
+                    </span>
+                    <span class="pull-right badge badge-info">+12</span>
+                </div>
+            </a>
+        </li>
+
+
+        <li class="dropdown-footer">
+            <a href="#">
+                See all notifications
+                <i class="ace-icon fa fa-arrow-right"></i>
+            </a>
+        </li>
+    </ul>
+</li>

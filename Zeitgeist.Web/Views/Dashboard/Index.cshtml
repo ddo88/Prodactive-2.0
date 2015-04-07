@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="page-header" class="page-header">
+    <h1>
+        <span data-bind="text:title">Tablero</span>
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            <span data-bind="text:description">Resumen General</span>
+        </small>
+    </h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+          @Html.Action("Challenges","Dashboard")  
+        </div>
+        <div class="col-sm-6">
+            @Html.Action("Resume","Dashboard")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            @Html.Action("ChatView","Chat")
+        </div>
+        <div class="col-sm-6">
+
+        </div>
+    </div>
+</div>

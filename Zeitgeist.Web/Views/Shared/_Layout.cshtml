@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Html.Partial("_head")
+</head>
+<body class="no-skin">
+    <!-- #section:basics/navbar.layout -->
+    <div id="navbar" class="navbar navbar-default">
+        @Html.Action("NavBar", "Home")
+    </div>
+
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('main-container', 'fixed');
+            } catch (e) { }
+        </script>
+
+        <!-- #section:basics/sidebar -->
+        @Html.Action("LeftMenu", "Home")
+        <!-- /section:basics/sidebar -->
+        <div class="main-content">
+            @Html.Action("Breadcrumbs", "Home")
+            @RenderBody()
+
+        </div>
+        <div class="footer">
+            <div class="footer-inner">
+                <!-- #section:basics/footer -->
+                <div class="footer-content">
+                    <span class="bigger-120">
+                        <span class="blue bolder">Ace</span>
+                        Application &copy; 2013-2014
+                    </span>
+
+                    @*&nbsp; &nbsp;
+                        <span class="action-buttons">
+                            <a href="#">
+                                <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+                            </a>
+
+                            <a href="#">
+                                <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                            </a>
+
+                            <a href="#">
+                                <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+                            </a>
+                        </span>*@
+                </div>
+
+                <!-- /section:basics/footer -->
+            </div>
+        </div>
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div>
+
+
+</body>
+</html>

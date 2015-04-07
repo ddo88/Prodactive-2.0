@@ -1,0 +1,69 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Zeitgeist.Appsco.Web.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Bd" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">prodactive</Value>
+    </Setting>
+    <Setting Name="ClientCollection" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">pos_client</Value>
+    </Setting>
+    <Setting Name="ColeccionPersona" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">persona</Value>
+    </Setting>
+    <Setting Name="ColeccionDeporte" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Deportes</Value>
+    </Setting>
+    <Setting Name="ColeccionLiga" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Ligas</Value>
+    </Setting>
+    <Setting Name="ColeccionDivision" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Divisiones</Value>
+    </Setting>
+    <Setting Name="ColeccionUsuarios" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/webApp/users/</Value>
+    </Setting>
+    <Setting Name="ColeccionRetos" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Retos</Value>
+    </Setting>
+    <Setting Name="ColeccionRoles" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/webApp/roles/</Value>
+    </Setting>
+    <Setting Name="ColeccionRegistro" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">registro</Value>
+    </Setting>
+    <Setting Name="ColeccionInvitaciones" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">invitaciones</Value>
+    </Setting>
+    <Setting Name="Setting" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive</Value>
+    </Setting>
+    <Setting Name="ConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mongodb://prodactive:pr0d4ct1v3@23.253.98.86:27017/prodactive</Value>
+    </Setting>
+    <Setting Name="ColeccionRegistroProgreso" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">registro_progreso</Value>
+    </Setting>
+    <Setting Name="CollectionLogEjercicio" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LogEjercicio</Value>
+    </Setting>
+    <Setting Name="CollectionEquipos" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Equipos</Value>
+    </Setting>
+    <Setting Name="mail" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">contacto@prodactive.co</Value>
+    </Setting>
+    <Setting Name="pass" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">@@gato01..</Value>
+    </Setting>
+    <Setting Name="CollectionTips" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Tips</Value>
+    </Setting>
+    <Setting Name="CollectionLogLogroDiario" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">LogLogroDiario</Value>
+    </Setting>
+    <Setting Name="CollectionChat" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Chat</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

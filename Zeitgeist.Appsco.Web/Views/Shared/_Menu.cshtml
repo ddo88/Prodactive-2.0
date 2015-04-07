@@ -1,0 +1,150 @@
+﻿<aside id="sidebar" class="sidebar responsive">
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-success">
+                <i class="ace-icon fa fa-signal"></i>
+            </button>
+
+            <button class="btn btn-info">
+                <i class="ace-icon fa fa-pencil"></i>
+            </button>
+
+            <!-- #section:basics/sidebar.layout.shortcuts -->
+            <button class="btn btn-warning">
+                <i class="ace-icon fa fa-users"></i>
+            </button>
+
+            <button class="btn btn-danger">
+                <i class="ace-icon fa fa-cogs"></i>
+            </button>
+
+            <!-- /section:basics/sidebar.layout.shortcuts -->
+        </div>
+
+    </div>
+
+        <script type="text/javascript">
+            try {
+                ace.settings.check('sidebar', 'fixed');
+            } catch (e) { }
+        </script>
+
+        <ul class="nav nav-list">
+
+            <li class="active">
+                <a id="inicio" data-bind="click:selectInicio" data-url="/Home/GetStats">
+                    <i class="menu-icon fa fa-desktop "></i>
+                    <span class="menu-text">Inicio</span>
+                </a>
+
+                <b class="arrow"></b>
+            </li>
+            <li>
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-pencil-square"></i>
+                    <span class="menu-text">Retos</span>
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+                <b class="arrow"></b>
+                
+                <ul class="submenu">
+                    <!-- ko foreach: retos -->    
+                    <li class="">
+                        <a id="inicio" data-bind="click:$root.selectReto">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            <span data-bind="text:name"></span>
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+                    
+            </li>
+            <li>
+                <a id="estadisticas" data-bind="click:$root.selectEstadisticas">
+                    <i class="menu-icon fa fa-flag-checkered"></i>
+                    <span class="menu-text"> Estadisticas </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li>
+                <a id="logros" data-bind="click:$root.selectLogros">
+                    <i class="menu-icon fa fa-check-square-o"></i>
+                    <span class="menu-text"> Logros </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li class="">
+                    <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-pencil-square-o"></i>
+                        <span class="menu-text">Tips</span>
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li class="">
+                            <a id="inicio" data-bind="click:$root.selectTipsDeporte">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Tips deporte
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="">
+                            <a id="division" data-bind="click:$root.selectTipsSalud">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Tips salud
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="">
+                            <a id="reto" data-bind="click:$root.selectTipsAlimentacion">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Tips alimentación
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+
+            
+            <li>
+                <a id="calendario" data-bind="click:$root.selectCalendario">
+                    <i class="menu-icon fa fa-calendar"></i>
+                    <span class="menu-text"> Calendario </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li>
+                <a id="galeria" data-bind="click:$root.selectGaleria">
+                    <i class="menu-icon fa fa-picture-o"></i>
+                    <span class="menu-text"> Galeria </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+             <li>
+                 <a id="about" data-bind="click:$root.selectAcercaDe">
+                     <i class="menu-icon fa fa-exclamation"></i>
+                     <span class="menu-text"> Acerca de </span>
+                 </a>
+                <b class="arrow"></b>
+            </li>
+            <li>
+                <a id="faq" data-bind="click:$root.selectFAQ">
+                    <i class="menu-icon fa fa-question"></i>
+                    <span class="menu-text"> FAQ </span>
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul><!-- /.nav-list -->
+        <!-- #section:basics/sidebar.layout.minimize -->
+        <!--div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+            <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+        </div-->
+        <!-- /section:basics/sidebar.layout.minimize -->
+        <script type="text/javascript">
+            try {
+                ace.settings.check('sidebar', 'collapsed'); } catch (e) { }
+        </script>
+</aside>

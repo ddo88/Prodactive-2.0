@@ -1,0 +1,60 @@
+﻿@model Zeitgeist.Web.Models.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+<div id="signup-box" class="signup-box widget-box no-border">
+    <div class="widget-body">
+        <div class="widget-main">
+            <h4 class="header green lighter bigger">
+                <i class="ace-icon fa fa-users blue"></i>
+                New User Registration
+            </h4>
+
+            <div class="space-6"></div>
+            <p> Enter your details to begin: </p>
+            @using (var f = Html.BeginChameleonForm("Register", FormMethod.Post, new HtmlAttributes(new { @id = "register-form" })))
+            {
+                using (var fld = f.BeginSection())
+                {
+                    @Html.AntiForgeryToken()
+                    @fld.FieldFor(m => m.UserName)
+                    @fld.FieldFor(m => m.Email)
+                    @fld.FieldFor(m => m.Password)
+                    @fld.FieldFor(m => m.ConfirmPassword)
+                    @Html.LabelFor(m => m.PasswordQuestion)
+                    @Html.DropDownListFor(m => m.PasswordQuestion, Model.AvailableQuestions, new { @class = "form-control" })
+                    @fld.FieldFor(m => m.PasswordAnswers)
+                    @fld.FieldFor(m => m.Nombre)
+                    @fld.FieldFor(m => m.Apellido)
+                    @fld.FieldFor(m => m.FechaNacimiento)
+                    @fld.FieldFor(m => m.Estatura)
+                    @fld.FieldFor(m => m.Peso)
+                    @Html.DropDownListFor(m => m.SexoId, Model.AvailableSex, new { @class = "form-control" })
+
+                }
+                using (var n = f.BeginNavigation())
+                {
+                    @n.Submit("Registrar")
+                }
+            }
+        </div>
+
+        <div class="toolbar center">
+            <a href="#" data-target="#login-box" class="back-to-login-link">
+                <i class="ace-icon fa fa-arrow-left"></i>
+                Back to login
+            </a>
+        </div>
+    </div><!-- /.widget-body -->
+</div><!-- /.signup-box -->
+
+<script>
+    $(function() {
+        zg.AjaxForm('#register-form', "/Account/Register", function (result) {
+            alert("vea " + result.redirect);
+            window.location = result.redirect;
+        });
+    });
+</script>
+
+

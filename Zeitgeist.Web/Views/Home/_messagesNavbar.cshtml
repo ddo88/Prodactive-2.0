@@ -1,0 +1,41 @@
+﻿<li class="green" ng-controller="MessageController as msgCtrl">
+    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+        <i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
+        <span class="badge badge-success">{{msgCtrl.messages.length}}</span>
+    </a>
+
+    <ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+        <li class="dropdown-header">
+            <i class="ace-icon fa fa-envelope-o"></i>
+            {{msgCtrl.messages.length}} Messages
+        </li>
+
+        <li class="dropdown-content">
+            <ul class="dropdown-menu dropdown-navbar">
+                <li ng-repeat="item in msgCtrl.messages">
+                    <a href="#">
+                        <img ng-src="{{item.Avatar}}" class="msg-photo" alt="{{item.UserName}}" />
+                        <span class="msg-body">
+                            <span class="msg-title">
+                                <span class="blue">{{item.UserName}}</span>
+                                {{item.Message}}
+                            </span>
+
+                            <span class="msg-time">
+                                <i class="ace-icon fa fa-clock-o"></i>
+                                <span am-time-ago="item.time"></span>
+                            </span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown-footer">
+            <a href="inbox.html">
+                See all messages
+                <i class="ace-icon fa fa-arrow-right"></i>
+            </a>
+        </li>
+    </ul>
+</li>

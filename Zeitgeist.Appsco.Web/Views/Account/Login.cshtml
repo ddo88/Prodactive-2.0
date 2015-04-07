@@ -1,0 +1,399 @@
+﻿@model Zeitgeist.Appsco.Web.Models.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Prodactive - Inicio Sesión</title>
+
+    <meta name="description" content="User login page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- bootstrap & fontawesome -->
+    @*<link rel="stylesheet" href="../assets/css/bootstrap.min.css" />*@
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300italic' rel='stylesheet' type='text/css'>
+    <link href="~/Content/template/assets/css/bootstrap.min.css" rel="stylesheet" />
+    
+
+    <link rel="stylesheet" href="~/Content/template/assets/css/font-awesome.min.css" />
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/Content/template/assets/css/ace-fonts.css" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="~/Content/template/assets/css/ace.min.css" />
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="../assets/css/ace-part2.min.css" />
+    <![endif]-->
+    <link rel="stylesheet" href="~/Content/template/assets/css/ace-rtl.min.css" />
+    <!--[if lte IE 9]>
+      <link rel="stylesheet" href="../assets/css/ace-ie.min.css" />
+    <![endif]-->
+    <link rel="stylesheet" href="~/Content/template/assets/css/ace.onpage-help.css" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="../assets/js/html5shiv.js"></script>
+    <script src="../assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="~/Content/cambios.css" rel="stylesheet" />
+    <link href="~/Content/template/assets/css/jquery-ui.min.css" rel="stylesheet" />
+</head>
+
+<body class="login-layout">
+    <div class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="login-container">
+                        <div class="center">
+                            <h1>
+                                <!-- <i class="ace-icon fa fa-leaf green"></i>
+                                <span class="red">Ace</span>
+                                <span class="white" id="id-text2">Application</span>-->
+                                <img id="logo" src="~/Content/Landing/images/logo.png" class="Logo_ini" />
+
+                            </h1>
+                            <h4 class="mod3" id="id-company-text">! Activa tu gente ¡</h4>
+                        </div>
+
+                        <div class="space-6"></div>
+
+                        <div class="position-relative">
+                            <div id="login-box" class="login-box visible widget-box no-border">
+                                <div class="widget-body">
+
+                                    <!-- Login -->
+                                    <div id="_login" class="widget-main">
+                                        <h5 class="header blue lighter biggers">
+                                            <i class="ace-icon fa fa-user green"></i>
+                                            Por favor ingrese su información
+                                        </h5>
+
+                                        <div class="space-6"></div>
+                                    
+                                        <div id="dialog-message" class="hide">
+                                            <p>
+                                                <span id="dialog-message-text"></span>
+                                            </p>
+                                        </div><!-- #dialog-message -->
+                                        <!-- ko with: login -->
+                                        
+                                    <!-- data-bind="submit:$root.submit"-->
+                                        <form id="loginform" action="/Account/Login" autocomplete="on" method="POST">
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true)
+                                            <fieldset>
+                                                <input name="returnUrl" id="returnUrl" type="hidden" value="@ViewBag.ReturnUrl" autocomplete="off" />
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <!-- data-bind="valueWithInit:userName,valueUpdate:'afterkeydown'"-->
+                                                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", placeholder = "Usuario", autofocus = "autofocus" })
+                                                        
+                                                        <!--<input name="user" type="text" class="form-control" required placeholder="Usuario"  autofocus="autofocus" />-->
+                                                        <!--<span data-bind='visible: userName.hasError, text: userName.validationMessage'> </span>-->
+                                                        <i class="ace-icon fa fa-user"></i>
+                                                    </span>
+                                                </label>
+
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <!-- data-bind="valueWithInit:password,valueUpdate:'afterkeydown'"-->
+                                                        <!--<input name="password" id="login_pass" type="password" class="form-control" required placeholder="Contraseña"  />-->
+                                                        @Html.PasswordFor(x=>x.Password,new {@class="form-control",placeholder="Contraseña"})
+                                                        <!-- <span>data-bind='visible: password.hasError, text: password.validationMessage'> </span>-->
+                                                        <i class="ace-icon fa fa-lock"></i>
+                                                    </span>
+                                                </label>
+                                                @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+                                                <div class="space"></div>
+
+                                                <div class="clearfix">
+                                                    <label class="inline">
+                                                        <!-- data-bind="checked: rememberMe" -->
+                                                        <input name="remember" type="checkbox"  class="ace" />
+                                                        <span class="lbl">Recordar mis datos</span>
+                                                    </label>
+
+                                                    <button id="login-btn" type="submit" class="width-35 pull-right btn btn-sm btn-primary" data-bind="submit:$root.submit">
+                                                        <i class="ace-icon fa fa-key"></i>
+                                                        <span class="bigger-110">Ingresar</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="space-4"></div>
+                                            </fieldset>
+                                        </form>
+                                        <!-- /ko -->
+                                    </div><!-- /.widget-main -->
+
+                                    <div class="toolbar clearfix">
+                                        
+                                        <div>
+                                            <a href="#" data-target="#forgot-box" class="forgot-password-link">
+                                                <i class="ace-icon fa fa-arrow-left"></i>
+                                                Olvide mi contraseña
+                                            </a>
+
+                                        </div>
+                                            
+                                        <div>
+                                            <a href="#" data-target="#signup-box" class="user-signup-link">
+                                                Quiero registrarme
+                                                <i class="ace-icon fa fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div><!-- /.widget-body -->
+                            </div><!-- /.login-box -->
+
+                            <div id="forgot-box" class="forgot-box widget-box no-border">
+                                <div class="widget-body">
+                                 
+                                              @{ Html.RenderPartial("~/Views/Account/ForgotPassword.cshtml"); }
+                                 
+                                </div><!-- /.widget-body -->
+                            </div><!-- /.forgot-box -->
+
+                            <div id="signup-box" class="signup-box widget-box no-border">
+                                <div class="widget-body">
+                                    <!-- Formulario de Registro -->
+                                    <div class="widget-main">
+                                        <h4 class="header blue lighter bigger">
+                                            <i class="ace-icon fa fa-users blue"></i>
+                                            Registro
+                                        </h4>
+
+                                        <div class="space-6"></div>
+                                        <p> Ingresa tus datos de cuenta: </p>
+                                        <!-- ko with: register -->
+                                        <form id="register-form" autocomplete="off">
+                                            <fieldset>
+                                                @Html.AntiForgeryToken()
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input required="required" type="text" class="form-control" data-bind="text:userName,value:userName" placeholder="Usuario" />
+                                                        <i class="ace-icon fa fa-user"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input required="required" type="password" class="form-control" data-bind="text:password,value:password" placeholder="Contraseña" />
+                                                        <i class="ace-icon fa fa-lock"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input required="required" type="password" class="form-control" data-bind="text:confirmPassword,value:confirmPassword" placeholder="Confirmar Contraseña" />
+                                                        <i class="ace-icon fa fa-lock"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <select class="form-control" data-bind="options:$root.questions,optionsText:'text',optionsValue:'value',value:passwordQuestion"></select>
+                                                        @*<i class="ace-icon fa fa-lock"></i>*@
+                                                    </span>
+                                                </label>
+
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" data-bind="text:passwordAnswers,value:passwordAnswers" placeholder="Respuesta pregunta secreta" />
+                                                        <i class="ace-icon fa fa-question"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="email" class="form-control" data-bind="text:email,value:email" placeholder="Correo" />
+                                                        <i class="ace-icon fa fa-envelope"></i>
+                                                    </span>
+                                                </label>
+
+
+
+                                                <div class="space-6"></div>
+                                                <p> Ingresa tus datos personales: </p>
+                                                <!--<label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <select class="form-control" required="required" data-bind="value:datosPersonales.tipo">
+                                                            <option value="" disabled selected>Seleccione Tipo de Persona</option>
+                                                            <option value="Natural">Natural</option>
+                                                            <option value="Juridica">Jurídica</option>
+                                                        </select>
+                                                    </span>
+                                                </label>-->
+
+                                                
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input required="required" type="number" class="form-control" data-bind="text:datosPersonales.identificacion,value:datosPersonales.identificacion" placeholder="Identificacion" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input required="required" type="text" class="form-control" data-bind="text:datosPersonales.nombre,value:datosPersonales.nombre" placeholder="Nombres" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" class="form-control" data-bind="text:datosPersonales.apellido,value:datosPersonales.apellido" placeholder="Apellidos" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="date" class="form-control datepicker" data-bind="text:datosPersonales.fechaNacimiento,value:datosPersonales.fechaNacimiento" placeholder="Fecha de nacimiento" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="number" class="form-control" data-bind="text:datosPersonales.peso,valuedatosPersonales.peso" placeholder="Peso" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="number" class="form-control" data-bind="text:datosPersonales.estatura,value:datosPersonales.estatura" placeholder="Estatura" />
+                                                        <i class="ace-icon fa fa-retweet"></i>
+                                                    </span>
+                                                </label>
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+
+                                                        <select data-bind="value:datosPersonales.sexo" class="form-control">
+                                                            <option value="" disabled selected>Sexo</option>
+                                                            <option value="M">Masculino</option>
+                                                            <option value="F">Femenino</option>
+                                                        </select>
+                                                        @*<i class="ace-icon fa fa-retweet"></i>*@
+                                                    </span>
+                                                </label>
+                                                
+                                                <label class="block">
+                                                    <input type="checkbox" data-bind="checked:userAgreement" class="ace" />
+                                                    <span class="lbl">
+                                                        Acepto los <a href="#">Términos y condiciones</a>
+                                                    </span>
+                                                </label>
+
+                                                <div class="space-24"></div>
+
+                                                <div class="clearfix">
+                                                    <button type="reset" class="width-30 pull-left btn btn-sm">
+                                                        <i class="ace-icon fa fa-refresh"></i>
+                                                        <span class="bigger-110">Limpiar</span>
+                                                    </button>
+
+                                                    <button type="button" data-bind="click:$root.submit" class="width-65 pull-right btn btn-sm btn-success">
+                                                        <span class="bigger-110">Registrar</span>
+
+                                                        <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                    </button>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                        <!-- /ko -->
+                                    </div>
+                                    <!-- Fin Formulario de Registro -->
+                                    <div class="toolbar center">
+                                       
+                                        <a href="#" data-target="#login-box" class="back-to-login-link">
+                                            <i class="ace-icon fa fa-arrow-left"></i>
+                                            Volver a inicio de sesion
+                                        </a>
+                                    </div>
+                                </div><!-- /.widget-body -->
+                            </div><!-- /.signup-box -->
+                        </div><!-- /.position-relative -->
+
+                   
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container -->
+    <!-- basic scripts -->
+
+    <script src="~/Content/template/assets/js/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <script src="~/Content/template/assets/js/jquery-ui.min.js"></script>
+    <script src="~/Scripts/site.js"></script>
+    <script src="~/Scripts/knockout-3.1.0.js"></script>
+    <script src="~/Scripts/Model/KnockoutHelpers.js"></script>
+    <script src="~/Scripts/underscore.js"></script>
+    <script src="~/Scripts/Model/login_model.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var model = new zg.loginVM();
+            ko.applyBindings(model, document.getElementById("_login"));
+
+            var model2 = new zg.registerVM();
+            ko.applyBindings(model2, document.getElementById("signup-box"));
+
+        });
+    </script>
+
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        
+        $.datepicker.regional['es'] = {
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'yyyy/mm/dd',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+        //$(function () {
+          //  $("#fecha").datepicker();
+        //});
+
+
+        $(function () {
+            $(document).on('click', '.toolbar a[data-target]', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+            });
+
+
+            $("#login_pass").keydown(function(event) {
+                if (event.which==13){
+                    event.preventDefault();
+                    $("#login-btn").focus();
+                }
+            });
+
+
+            $(".datepicker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                yearRange: '1950:2013',
+                dateFormat: 'yy-mm-dd' 
+            });
+            
+            //
+        });
+    </script>
+</body>
+</html>

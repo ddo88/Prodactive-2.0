@@ -1,0 +1,57 @@
+﻿@*<script src="~/Scripts/knockout-3.3.0.js"></script>*@
+
+
+<div class="widget-box" id="chat-module">
+    <div class="widget-header">
+        <h4 class="widget-title lighter smaller">
+            <i class="ace-icon fa fa-comment blue"></i>
+            Conversation
+        </h4>
+    </div>
+    <div class="widget-body">
+        <div class="widget-main no-padding" ng-controller="MessageController as msgCtrl">
+            <div class="form-actions">
+                <div class="input-group">
+                    <input id="message" placeholder="Type your message here ..." ng-enter="msgCtrl.sendMessage()" ng-model="msgCtrl.message" type="text" class="form-control" name="message" />
+                    <span class="input-group-btn">
+                        <button id="sendmessage" class="btn btn-sm btn-info no-radius" type="button" ng-click="msgCtrl.sendMessage()">
+                            <i class="ace-icon fa fa-share"></i>
+                            Send
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <!-- #section:pages/dashboard.conversations -->
+            <div class="dialogs">
+                <div class="itemdiv dialogdiv" ng-repeat="item in msgCtrl.messages">
+                    <div class="user">
+                        <img ng-src="{{item.Avatar}}" />
+                    </div>
+                    <div class="body">
+                        <div class="time">
+                            <i class="ace-icon fa fa-clock-o"></i>
+                            <span class="green" am-time-ago="item.time"></span><!-- -->
+                        </div>
+
+                        <div class="name">
+                            <a href="#">{{item.UserName}}</a>
+                        </div>
+                        <div class="text">{{item.Message}}</div>
+
+                        <div class="tools">
+                            <a href="#" class="btn btn-minier btn-info">
+                                <i class="icon-only ace-icon fa fa-share"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /section:pages/dashboard.conversations -->
+
+
+
+        </div><!-- /.widget-main -->
+    </div><!-- /.widget-body -->
+</div><!-- /.widget-box -->
+

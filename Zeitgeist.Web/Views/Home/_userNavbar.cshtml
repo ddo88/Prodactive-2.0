@@ -1,0 +1,47 @@
+﻿<li class="light-blue">
+    @model Zeitgeist.Web.Models.Page.NavbarModel.PersonalData
+    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+        <img class="nav-user-photo" src="@Model.AvatarUrl" alt="Jason's Photo" />
+        <span class="user-info">
+            <small>Bienvenido</small>
+            @Model.Name
+        </span>
+
+        <i class="ace-icon fa fa-caret-down"></i>
+    </a>
+
+    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+
+        <li>
+            <a href="#">
+                <i class="ace-icon fa fa-cog"></i>
+                Settings
+            </a>
+        </li>
+        @if (Model.AccessToAdmin)
+        {
+
+            <li>
+                <a href="@Url.Action("Index","Admin")">
+                    <i class="ace-icon fa fa-cog"></i>
+                    Administration
+                </a>
+            </li>
+
+        }
+        <li>
+            <a href="@Url.Action("Profile","User")">
+                <i class="ace-icon fa fa-user"></i>
+                Perfil
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="@Url.Action("LogOff","Account")">
+                <i class="ace-icon fa fa-power-off"></i>
+                Cerrar Session
+            </a>
+        </li>
+    </ul>
+
+</li>

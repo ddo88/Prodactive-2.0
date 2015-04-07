@@ -1,0 +1,78 @@
+﻿@using System.Web.UI.WebControls
+@model Zeitgeist.Web.Models.Page.MenuModel
+           
+@helper MenuRazor(Zeitgeist.Web.Models.Page.MenuItem item)
+{
+
+    bool withSubItems = (item.SubMenuItems.Count > 0);
+
+    <li @if (item.Active) { <text> class="active" </text>}>
+        <a href="@item.Href" @if (withSubItems) { <text>  class="dropdown-toggle"</text>  }>
+            <i class="menu-icon fa @item.IconClass"></i>
+            <span class="menu-text">  @item.Name</span>
+            @if (withSubItems)
+            { <text>  <b class="arrow fa fa-angle-down"></b> </text>  }
+        </a>
+        @if (withSubItems)
+        {
+            <b class="arrow fa fa-angle-down"></b>
+            <ul class="submenu">
+                @foreach (Zeitgeist.Web.Models.Page.MenuItem elm in item.SubMenuItems)
+                {
+                    @MenuRazor(elm)
+                }
+            </ul>
+        }
+        else
+        {
+            <b class="arrow"></b>
+        }
+    </li>
+}
+<div id="sidebar" class="sidebar                  responsive">
+    <script type="text/javascript">
+                try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+    </script>
+
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-success">
+                <i class="ace-icon fa fa-signal"></i>
+            </button>
+
+            <button class="btn btn-info">
+                <i class="ace-icon fa fa-pencil"></i>
+            </button>
+
+            <!-- #section:basics/sidebar.layout.shortcuts -->
+            <button class="btn btn-warning">
+                <i class="ace-icon fa fa-users"></i>
+            </button>
+
+            <button class="btn btn-danger">
+                <i class="ace-icon fa fa-cogs"></i>
+            </button>
+
+            <!-- /section:basics/sidebar.layout.shortcuts -->
+        </div>
+    </div><!-- /.sidebar-shortcuts -->
+
+    <ul class="nav nav-list">
+        
+    @foreach (Zeitgeist.Web.Models.Page.MenuItem item in Model.MenuItems)
+    {
+        @MenuRazor(item)
+    }
+      
+    </ul><!-- /.nav-list -->
+    <!-- #section:basics/sidebar.layout.minimize -->
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+
+    <!-- /section:basics/sidebar.layout.minimize -->
+    <script type="text/javascript">
+        try {
+            ace.settings.check('sidebar', 'collapsed'); } catch (e) { }
+    </script>
+</div>
