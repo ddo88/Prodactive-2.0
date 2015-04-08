@@ -5,7 +5,9 @@ using System.Linq.Expressions;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using Zeitgeist.Web.Domain;
 using Zeitgeist.Web.Models.Page;
 
@@ -36,6 +38,32 @@ namespace Zeitgeist.Web.Tools
                 list.Add(item);
             }
             return list;
+        }
+    }
+
+
+    public static class HtmlExtensions
+    {
+        public static MvcHtmlString Script(this HtmlHelper htmlHelper, Func<object, HelperResult> template)
+        {
+            htmlHelper.ViewContext.HttpContext.Items["_script_" + Guid.NewGuid()] = template;
+            return MvcHtmlString.Empty;
+        }
+
+        public static IHtmlString RenderScripts(this HtmlHelper htmlHelper)
+        {
+            foreach (object key in htmlHelper.ViewContext.HttpContext.Items.Keys)
+            {
+                if (key.ToString().StartsWith("_script_"))
+                {
+                    var template = htmlHelper.ViewContext.HttpContext.Items[key] as Func<object, HelperResult>;
+                    if (template != null)
+                    {
+                        htmlHelper.ViewContext.Writer.Write(template(null));
+                    }
+                }
+            }
+            return MvcHtmlString.Empty;
         }
     }
 }

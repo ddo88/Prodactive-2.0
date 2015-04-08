@@ -13,6 +13,7 @@ using Zeitgeist.Web.Tools;
 namespace Zeitgeist.Web.Controllers
 {
     [Authorize]
+    
     public class HomeController : Controller
     {
         private readonly Security _security;

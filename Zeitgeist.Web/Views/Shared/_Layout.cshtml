@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Zeitgeist.Web.Tools
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -61,7 +62,7 @@
             <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
         </a>
     </div>
-
-
+    @Html.Partial("_ScriptsFooter")
+    @Html.RenderScripts()
 </body>
 </html>

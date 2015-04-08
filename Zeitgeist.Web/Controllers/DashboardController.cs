@@ -9,6 +9,7 @@ using Zeitgeist.Web.Tools;
 
 namespace Zeitgeist.Web.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly RetoService _retoService;

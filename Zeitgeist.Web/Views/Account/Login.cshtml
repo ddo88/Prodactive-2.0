@@ -1,4 +1,5 @@
-﻿@model Zeitgeist.Web.Models.LoginModel
+﻿@using Zeitgeist.Web.Tools
+@model Zeitgeist.Web.Models.LoginModel
 
 @{
     ViewBag.Title = "Login";
@@ -66,9 +67,8 @@
     </div><!-- /.widget-body -->
 </div><!-- /.login-box -->
 
-<script>
-
-    $(function() {
+@Html.Script(
+    @<script>$(function() {
         zg.AjaxForm('#login-form', "/Account/Login", function (result) {
             if (result.success) {
                 window.location.href = result.redirect;
@@ -76,6 +76,9 @@
                 $('#' + result.errorField).parent().addClass("has-error");
             }
         });
-    });
+    });</script>
+)
+
     
-</script>
+    
+
