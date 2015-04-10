@@ -14,15 +14,15 @@ namespace Zeitgeist.Web.Controllers
     {
         private readonly RetoService _retoService;
         private readonly UserService _userService;
-        private readonly Security _securityService;
+        private readonly WorkContext _workContextService;
 
         public DashboardController(RetoService retoService,
                                    UserService userService,
-                                   Security securityService)
+                                   WorkContext workContextService)
         {
             _retoService = retoService;
             _userService = userService;
-            _securityService = securityService;
+            _workContextService = workContextService;
         }
 
         //
@@ -35,10 +35,10 @@ namespace Zeitgeist.Web.Controllers
 
         public ActionResult Challenges()
         {
-            var user  = _securityService.GetAuthenticatedUser();
+            var userContext  = _workContextService.GetAuthenticatedUser();
             var model = new ChallengeModel();
             
-            foreach (var reto in _retoService.GetChallengesWithUserRelated(user.Id))
+            foreach (var reto in _retoService.GetChallengesWithUserRelated(userContext.User.Id))
             {
                 model.DetailChallenges.Add(new DetailChallenge { Name = reto.Name, Goal = reto.Meta, MyProgress = _retoService.GetStepsForChallenge(reto.Id) });
             }
@@ -59,8 +59,8 @@ namespace Zeitgeist.Web.Controllers
         [HttpPost]
         public JsonResult GetResume()
         {
-            var user = _securityService.GetAuthenticatedUser();
-            var result = _retoService.GetStepsForLastXDaysChallenge(user.Id, 5);
+            var userContext = _workContextService.GetAuthenticatedUser();
+            var result = _retoService.GetStepsForLastXDaysChallenge(userContext.User.Id, 5);
             return Json(result);
         }
     }

@@ -21,6 +21,7 @@ namespace Zeitgeist.Web.Domain
         public virtual ICollection<Reto> CoachRetos { get; set; }
         public virtual ICollection<Reto> OwnerRetos { get; set; }
         public virtual ICollection<Notificacion> UserNotifications { get; set; }
+        public virtual ICollection<UserSettingsMapping> UserSettings { get; set; }
     }
 
     public class NullUser:User

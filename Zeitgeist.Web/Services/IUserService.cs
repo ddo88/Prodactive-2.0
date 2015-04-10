@@ -6,5 +6,7 @@ namespace Zeitgeist.Web.Services
     {
         User GetCustomerByUsername(string user);
         void Update(User user);
+        void SaveSetting(User user, Setting setting,string value);
+
     }
 }

@@ -15,7 +15,7 @@
         @foreach (var a in Model.Leagues)
         {
             <li>
-                <a href="#">
+                <a href="@Url.Action("ChangeLeague","Home",new RouteValueDictionary(){{"id",a.IdLeague}})">
                     <div class="clearfix">
                         <span class="pull-left">@a.Name</span>
                         <span class="pull-right">65%</span>

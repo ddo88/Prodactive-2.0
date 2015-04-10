@@ -13,7 +13,7 @@ namespace Zeitgeist.Web.Controllers
 {
     public class SettingsController : Controller
     {
-        private readonly Security _security;
+        private readonly WorkContext _workContext;
         private readonly IUserService _userService;
         private readonly PictureService _pictureService;
         private readonly IRepository<User> _userRepository;
@@ -21,9 +21,9 @@ namespace Zeitgeist.Web.Controllers
         //
         // GET: /Settings/
 
-        public SettingsController(Security security,IUserService userService,PictureService pictureService,IRepository<User> userRepository,Media media)
+        public SettingsController(WorkContext workContext,IUserService userService,PictureService pictureService,IRepository<User> userRepository,Media media)
         {
-            _security = security;
+            _workContext = workContext;
             _userService = userService;
             _pictureService = pictureService;
             _userRepository = userRepository;
@@ -40,7 +40,7 @@ namespace Zeitgeist.Web.Controllers
         {
             if (file != null)
             {
-                var user = _security.GetAuthenticatedUser();
+                var userContext = _workContext.GetAuthenticatedUser();
                 // save the image path path to the database or you can send image 
                 // directly to database
                 // in-case if you want to store byte[] ie. for DB
@@ -56,10 +56,10 @@ namespace Zeitgeist.Web.Controllers
                 p.Bytes = array;
                 p.MimeType = file.ContentType;
                 p.FileName = file.FileName;
-                user.Avatar= p;
+                userContext.User.Avatar= p;
                 
                 //_userRepository.Update(elm);
-                _userService.Update(user);
+                _userService.Update(userContext.User);
                 _media.SavePictureInFile(p.Id, p.Bytes, p.MimeType);
 
             }

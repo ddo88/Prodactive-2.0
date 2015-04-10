@@ -16,7 +16,7 @@ namespace Zeitgeist.Web.Controllers
     
     public class HomeController : Controller
     {
-        private readonly Security _security;
+        private readonly WorkContext _workContext;
         private readonly Media _media;
         private readonly RetoService _retoService;
         private readonly IRepository<Plan> _planRepository;
@@ -29,15 +29,16 @@ namespace Zeitgeist.Web.Controllers
         private readonly IRepository<TipoReto> _tipoRetoRepository;
         private readonly IRepository<Premio> _premioRepository;
         private readonly IRepository<RetoEquiposMapping> _retoEquiposRepository;
+        private readonly IRepository<Setting> _settingRepository;
 
-        public HomeController(Security security, Media media, RetoService retoService,
+        public HomeController(WorkContext workContext, Media media, RetoService retoService,
             IRepository<Plan> planRepository, IRepository<Liga> ligaRepository,
             IRepository<Deporte> deporteRepository,IRepository<Equipo> equipoRepository ,
             IRepository<Division> divisionRepository, IRepository<EquipoDivisionMapping> equipoDivisionRepository,
             IRepository<Reto> retoRepository,IRepository<TipoReto> tipoRetoRepository,
-            IRepository<Premio> premioRepository, IRepository<RetoEquiposMapping> retoEquiposRepository)
+            IRepository<Premio> premioRepository, IRepository<RetoEquiposMapping> retoEquiposRepository,IRepository<Setting> settingRepository )
         {
-            _security = security;
+            _workContext = workContext;
             _media = media;
             _retoService = retoService;
             _planRepository = planRepository;
@@ -50,21 +51,24 @@ namespace Zeitgeist.Web.Controllers
             _tipoRetoRepository = tipoRetoRepository;
             _premioRepository = premioRepository;
             _retoEquiposRepository = retoEquiposRepository;
+            _settingRepository = settingRepository;
         }
 
         //
         // GET: /Home/
         public ActionResult Index()
         {
+
+            
             /* only for test*/
             //Roles.CreateRole(Security.AppRoles.Admin);
             //Roles.CreateRole(Security.AppRoles.Athlete);
             //Roles.CreateRole(Security.AppRoles.Coach);
 
             //var user = _security.GetAuthenticatedUser();
-            //Roles.AddUserToRole(user.UserName, Security.AppRoles.Admin);
-            //Roles.AddUserToRole(user.UserName, Security.AppRoles.Athlete);
-            //Roles.AddUserToRole(user.UserName, Security.AppRoles.Coach);
+            //Roles.AddUserToRole(user.User.UserName, Security.AppRoles.Admin);
+            //Roles.AddUserToRole(user.User.UserName, Security.AppRoles.Athlete);
+            //Roles.AddUserToRole(user.User.UserName, Security.AppRoles.Coach);
 
             //createData();
             //var user = _security.GetAuthenticatedUser();
@@ -103,11 +107,11 @@ namespace Zeitgeist.Web.Controllers
         [ChildActionOnly]
         public ActionResult NavBar()
         {
-            var user = _security.GetAuthenticatedUser();
+            var userContext = _workContext.GetAuthenticatedUser();
             NavbarModel model = new NavbarModel();
 
-            PrepareLeagueModel  (model, user);
-            PrepareUserDataModel(model, user);
+            PrepareLeagueModel  (model, userContext);
+            PrepareUserDataModel(model, userContext.User);
             
             return View(model);
         }
@@ -120,19 +124,35 @@ namespace Zeitgeist.Web.Controllers
         [NonAction]
         private List<Reto> GetRetos()
         {
-            var user = _security.GetAuthenticatedUser();
-            return _retoService.GetChallengesWithUserRelated(user.Id);
+            var userContext = _workContext.GetAuthenticatedUser();
+            return _retoService.GetChallengesWithIdLeague(userContext.IdLeague);
+            //return _retoService.GetChallengesWithUserRelated(userContext.User.Id);
         }
 
         [NonAction]
-        private void PrepareLeagueModel(NavbarModel model, User user)
+        private void PrepareLeagueModel(NavbarModel model, UserContext userContext)
         {
-            foreach (var liga in user.Ligas)
+
+            if (userContext.User.UserSettings == null || userContext.User.UserSettings.Count == 0)
             {
-                model.Leagues.Leagues.Add(new League(){Name = liga.Name});    
+                try
+                {
+                    var ligas = userContext.User.Ligas; 
+                    if (ligas != null && ligas.Count>0)
+                        _workContext.SaveUserSetting(SettingBase.League, ligas.FirstOrDefault().Id.ToString());
+                }
+                catch (Exception ex)
+                {
+                    //REV
+                }
+                
+            }
+
+            foreach (var liga in userContext.User.Ligas)
+            {
+                model.Leagues.Leagues.Add(new League(){Name = liga.Name, IdLeague=liga.Id,Selected=(userContext.IdLeague==liga.Id)});    
             }
         }
-
         
         [NonAction]
         private void PrepareUserDataModel(NavbarModel model, User user)
@@ -146,12 +166,11 @@ namespace Zeitgeist.Web.Controllers
             else
                 model.User.AvatarUrl = r;
 
-            if (roles.Contains(Security.AppRoles.Admin))
+            if (roles.Contains(WorkContext.AppRoles.Admin))
             {
                 model.User.AccessToAdmin = true;
             }
         }
-
 
         private void createData()
         {
@@ -166,7 +185,7 @@ namespace Zeitgeist.Web.Controllers
 
             Liga liga= new Liga();
             liga.Name = "liga Daniel";
-            liga.User = _security.GetAuthenticatedUser();
+            liga.User = _workContext.GetAuthenticatedUser().User;
             liga.Plan = p;
             _ligaRepository.Insert(liga);
 
@@ -217,14 +236,14 @@ namespace Zeitgeist.Web.Controllers
 
 
             Reto reto = new Reto();
-            reto.Coach = _security.GetAuthenticatedUser();
+            reto.Coach = _workContext.GetAuthenticatedUser().User;
             reto.DivisionId = 1;
             reto.FechaInicio = DateTime.Now;
             reto.FechaFin = DateTime.Now.AddMonths(5);
             reto.IsActivo = true;
             reto.LigaId = 1;
             reto.Meta = 20000;
-            reto.Owner = _security.GetAuthenticatedUser();
+            reto.Owner = _workContext.GetAuthenticatedUser().User;
             reto.PremioId = p.Id;
             reto.TipoRetoId = 1;
             _retoRepository.Insert(reto);
@@ -237,6 +256,12 @@ namespace Zeitgeist.Web.Controllers
             re2.EquipoId = 2;
             re2.RetoId = 1;
             _retoEquiposRepository.Insert(re2);
+        }
+
+        public ActionResult ChangeLeague(int id)
+        {
+            _workContext.GetAuthenticatedUser().IdLeague = id;
+            return RedirectToAction("Index");
         }
 
     }

@@ -28,7 +28,7 @@ namespace Zeitgeist.Web.App_Start
             kernel.Bind<HttpContext>().ToMethod(ctx => HttpContext.Current).InTransientScope();
             kernel.Bind<HttpContextBase>().ToMethod(ctx => new HttpContextWrapper(HttpContext.Current)).InTransientScope();
             kernel.Bind<IUserService>().To<UserService>();
-            kernel.Bind<Security>().To<Security>();
+            kernel.Bind<WorkContext>().To<WorkContext>();
             kernel.Bind<PictureService>().To<PictureService>();
             kernel.Bind<InMemoryCache>().To<InMemoryCache>().InSingletonScope();
             kernel.Bind<Media>().To<Media>();

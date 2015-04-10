@@ -238,9 +238,11 @@
     <Compile Include="Data\RetoEquiposMap.cs" />
     <Compile Include="Data\RetoMap.cs" />
     <Compile Include="Data\SampleData.cs" />
+    <Compile Include="Data\SettingMap.cs" />
     <Compile Include="Data\TipMap.cs" />
     <Compile Include="Data\TipoRetoMap.cs" />
     <Compile Include="Data\UserMap.cs" />
+    <Compile Include="Data\UserSettingMap.cs" />
     <Compile Include="Domain\Chat.cs" />
     <Compile Include="Domain\Notificacion.cs" />
     <Compile Include="Domain\Enumerators.cs" />
@@ -259,10 +261,12 @@
     <Compile Include="Domain\Reto.cs" />
     <Compile Include="Domain\RetoDeportesMapping.cs" />
     <Compile Include="Domain\RetoEquiposMapping.cs" />
+    <Compile Include="Domain\Setting.cs" />
     <Compile Include="Domain\Tip.cs" />
     <Compile Include="Domain\TipoReto.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Domain\UserEquipoMapping.cs" />
+    <Compile Include="Domain\UserSettingsMapping.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -276,15 +280,18 @@
     <Compile Include="Models\Page\Notification.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Ninject\NinjectIocAdapter.cs" />
+    <Compile Include="Ninject\NinjectSessionScopingExtention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChatService.cs" />
     <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\PictureService.cs" />
     <Compile Include="Services\RetoService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Tools\ExtensionMethods.cs" />
     <Compile Include="Tools\InMemoryCache.cs" />
     <Compile Include="Tools\Media.cs" />
-    <Compile Include="Tools\Security.cs" />
+    <Compile Include="Tools\WorkContext.cs" />
     <Compile Include="Tools\UserObserver.cs" />
   </ItemGroup>
   <ItemGroup>

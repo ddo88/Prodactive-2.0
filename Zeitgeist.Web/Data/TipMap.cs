@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
+using Humanizer;
 using Zeitgeist.Core.Data.Configuration;
 using Zeitgeist.Web.Domain;
 

@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Data.Entity;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -65,7 +66,10 @@ namespace Zeitgeist.Web
         protected override void OnApplicationStarted()
          {
              Context c = new Context();
-             c.Database.CreateIfNotExists();
+            
+             if(c.Database.CreateIfNotExists())
+                Database.SetInitializer<Context>(new SampleData(c));
+            
              base.OnApplicationStarted();
              AreaRegistration.RegisterAllAreas();
              FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

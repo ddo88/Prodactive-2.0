@@ -38,6 +38,8 @@ namespace Zeitgeist.Web.Models.Page
     public class League
     {
         public string Name { get; set; }
+        public int IdLeague { get; set; }
+        public bool Selected { get; set; }
     }
 
 

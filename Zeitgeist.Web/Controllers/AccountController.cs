@@ -16,15 +16,15 @@ namespace Zeitgeist.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IRepository<User> _useRepository;
-        private readonly Security _security;
+        private readonly WorkContext _workContext;
         private readonly InMemoryCache _memoryCache;
 
         public AccountController(IRepository<User> useRepository,
-                                 Security          security,
+                                 WorkContext          workContext,
                                  InMemoryCache     memoryCache)
         {
             _useRepository = useRepository;
-            _security = security;
+            _workContext = workContext;
             _memoryCache = memoryCache;
         }
 
@@ -125,8 +125,8 @@ namespace Zeitgeist.Web.Controllers
         {
             //WebSecurity.Logout();
             //return RedirectToAction("Index", "Home");
-            var user = _security.GetAuthenticatedUser();
-            _memoryCache.DeleteCache(user.UserName);
+            var userContext = _workContext.GetAuthenticatedUser();
+            _memoryCache.DeleteCache(userContext.User.UserName);
             FormsAuthentication.SignOut();
             Session.Abandon();
 

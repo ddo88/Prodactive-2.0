@@ -39,6 +39,36 @@ namespace Zeitgeist.Web.Tools
             }
             return list;
         }
+
+        private static UserSettingsMapping GetSettingMapping (User user, string name)
+        {
+            if (user.UserSettings != null || user.UserSettings.Count > 0)
+            {
+                var r = user.UserSettings.Where(x => x.Setting.Name.Contains(SettingBase.League));
+                if (r.Count() > 0)
+                    return r.First();
+
+            }
+            return null;
+        }
+
+        public static object GetSetting(this User user, string name)
+        {
+            var setting = GetSettingMapping(user, name);
+            if (setting == null)
+                return null;
+
+            switch (setting.Setting.TypeValue)
+            {
+                case 0:
+                    return Convert.ToInt32(setting.Value);
+                case 1:
+                    return setting.Value;
+            }
+            return null;
+        }
+
+
     }
 
 

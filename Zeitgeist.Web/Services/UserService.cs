@@ -22,11 +22,15 @@ namespace Zeitgeist.Web.Services
 
         public User GetCustomerByUsername(string user)
         {
-            var query = _userRepository.Table.Where(x => x.UserName == user);
-            if (query.Count() > 0)
-                return query.First();
-            
-            return new NullUser();
+
+            return _memoryCache.GetOrSet(user, () =>
+            {
+                var query = _userRepository.Table.Where(x => x.UserName == user);
+                if (query.Count() > 0)
+                    return query.First();
+
+                return new NullUser();
+            });
         }
 
         public void Update(User user)
@@ -35,25 +39,20 @@ namespace Zeitgeist.Web.Services
                 throw new ArgumentNullException("user");
 
             _userRepository.Update(user);
+            
             _memoryCache.DeleteCache(user.UserName);
-        }
-    }
-
-
-    public class PictureService //: IPictureService
-    {
-        private readonly IRepository<Picture> _pictureRepository;
-
-        public PictureService(IRepository<Picture> pictureRepository )
-        {
-            _pictureRepository = pictureRepository;
+            _memoryCache.DeleteCache("UserContext" + user.UserName);
+            
         }
 
-        public void Insert(Picture picture)
+        public void SaveSetting(User user, Setting setting,string value)
         {
-            if(picture==null)
-                throw new ArgumentNullException("picture");
-            _pictureRepository.Insert(picture);
+            UserSettingsMapping us = new UserSettingsMapping();
+            us.User                = user;
+            us.Setting             = setting;
+            us.Value               = value;
+            user.UserSettings.Add(us);
+            Update(user);
         }
     }
 }
