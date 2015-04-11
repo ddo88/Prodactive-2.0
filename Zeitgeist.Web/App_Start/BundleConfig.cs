@@ -54,7 +54,8 @@ namespace Zeitgeist.Web
 
             bundles.Add(new ScriptBundle("~/bundles/chameleon-bootstrapjs").Include(
                 "~/Scripts/bootstrap.js",
-                "~/Scripts/jquery.validate.unobtrusive.twitterbootstrap.js"
+                "~/Scripts/jquery.validate.unobtrusive.bootstrap.js"
+                //"~/Scripts/jquery.validate.unobtrusive.twitterbootstrap.js"
             ));
             bundles.Add(new StyleBundle("~/bundles/chameleon-bootstrapcss").Include(
                 "~/Content/bootstrap.css",

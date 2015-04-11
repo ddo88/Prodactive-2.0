@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿//$(function () {
     $(function() {
         $("form").each(function(index, item) {
             var settings = $.data(item, "validator").settings;
@@ -12,4 +12,4 @@
             };
         });
     });
-});
+//});

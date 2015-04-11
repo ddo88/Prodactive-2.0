@@ -13,6 +13,11 @@
                 Please Enter Your Information
             </h4>
             <div class="space-6"></div>
+            <div id="login_alert" class="alert alert-warning hidden" role="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span id="login_alert_message"></span>
+            </div>
+            
             @using (var f = Html.BeginChameleonForm("Login", FormMethod.Post, new HtmlAttributes(new { @id = "login-form" })))
             {
                 using (var s = f.BeginSection("Login"))
@@ -73,7 +78,9 @@
             if (result.success) {
                 window.location.href = result.redirect;
             } else {
-                $('#' + result.errorField).parent().addClass("has-error");
+                $('#login_alert_message').html(result.message);
+                $('#login_alert').removeClass('hidden').alert();
+                $('#' + result.errorField).parent().parent().addClass("has-error");
             }
         });
     });</script>
